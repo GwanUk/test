@@ -28,5 +28,6 @@ public class test {
         Pond pond = new Pond();
         pond.start(0, 0);
         System.out.println("result5 = " + pond.sum);
+        pond.getPond();
     }
 }

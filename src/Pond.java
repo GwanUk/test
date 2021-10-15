@@ -54,4 +54,13 @@ public class Pond {
         start(y, x + dx[0]);
         start(y, x + dx[1]);
     }
+
+    public void getPond() {
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                System.out.print(pond[i][j]+" ");
+            }
+            System.out.println("");
+        }
+    }
 }
