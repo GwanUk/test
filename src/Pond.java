@@ -2,7 +2,6 @@ public class Pond {
 
     int[] dy = {-1, 1};
     int[] dx = {-1, 1};
-    boolean flag;
     public int[][] check;
 
     public int[][] pond = {
@@ -18,10 +17,10 @@ public class Pond {
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
     };
 
-    public void init(int y, int x) {
+    public int init(int y, int x) {
 
-        if (y < 0 || y > 9 || x < 0 || x > 9) return;
-        if (check[y][x] == -1) return;
+        if (y < 0 || y > 9 || x < 0 || x > 9) return 0;
+        if (check[y][x] == -1) return pond[y][x];
         check[y][x] = -1;
 
         if (pond[y][x] != 0
@@ -31,23 +30,32 @@ public class Pond {
                 && pond[y][x + dx[1]] >= pond[y][x]) {
 
             pond[y][x] += 1;
-            flag = true;
         }
 
 
-        init(y + dy[0], x);
-        init(y + dy[1], x);
-        init(y, x + dx[0]);
-        init(y, x + dx[1]);
+        int v1 = init(y + dy[0], x);
+        int v2 = init(y + dy[1], x);
+        int v3 = init(y, x + dx[0]);
+        int v4 = init(y, x + dx[1]);
+
+        int max = pond[y][x];
+
+        if (v1 > max) max = v1;
+        if (v2 > max) max = v2;
+        if (v3 > max) max = v3;
+        if (v4 > max) max = v4;
+
+        return max;
     }
 
     public void start(int y, int x) {
+        int n = 1;
+        int r = 0;
         do {
+            if (r != 0) n = r;
             check = new int[10][10];
-            flag = false;
-            init(y, x);
-        }
-        while (flag);
+            r = init(y, x);
+        } while (r > n);
     }
 
     public void getPond() {
